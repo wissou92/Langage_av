@@ -1,4 +1,4 @@
-all:
+all: clean main run
 
 run:
 	./main

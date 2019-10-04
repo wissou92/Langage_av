@@ -7,4 +7,7 @@ void testExercice2();
 // Code test Exercice 4
 void testExercice4();
 
+// Code test Exercice 6
+void testExercice6();
+
 #endif
