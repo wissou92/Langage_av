@@ -58,6 +58,12 @@ class Point {
 		
 };
 
+/*
+ * ########################
+ * 		CLASSE CString
+ * ########################
+ */
+
 class CString {
 	
 	private:
@@ -166,6 +172,13 @@ class CString {
 		 	if (strcmp (chaine, s2.chaine) > 0) return 1;
 		 	else return 0;
 		 }
+		 
+		 ostream operator << (ostream& o, complex& c) 
+		 {
+			 
+		 }
+		 
+		 
 		  
 };
 
