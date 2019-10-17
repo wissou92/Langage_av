@@ -8,7 +8,7 @@ class Vector {
 	private:
 		int *vect;
 		int dim;
-	// Méthodes	
+	// Méthodes
 	public:
 		// Constructeurs
 		Vector (int d);
@@ -16,7 +16,7 @@ class Vector {
 		// Destructeur
 		~Vector();
 		
-		Vector &operator= (const Vector &);
+		Vector &operator= (const Vector &v);
 		int &operator [] (int i); // Retourne le ième élément
 		Vector &operator+= (const int); // Ajoute un entier au vecteur
 		friend ostream &operator <<(ostream &o, Vector v); // Surcharge de l'opérateur

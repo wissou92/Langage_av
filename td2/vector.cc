@@ -23,6 +23,11 @@ Vector (int d) {
 	}
 }
 
+Vector () {
+	vect = new int [dim = 1];
+	vect [0] = 0;
+}
+
 Vector (const Vector &v) {
 	dim = v.dim;
 	int k = 0;
@@ -42,16 +47,29 @@ Vector (const Vector &v) {
 // Retourne une référence vers le ième entier du vecteur
 // Le retour de référence rend possible la modification des éléments du
 // vecteur
-int & Vector::operator [](int i) {
+int &Vector::operator [](int i) {
 	if (i<dim && i >= 0)
 		return vect[i];
 	cout << "indice hors limites. Dernière composante retournée\n";
 	return vect[dim-1];
 }
 
+// Opérateur d'affectation
+// Cet opérateur permet de copier un vecteur dans un autre
+// indépendant du vecteur initial
+Vector &Vector::operator= (const Vector &v) {
+	if (vect)
+		delete[] vect;
+	vect = new int [dim = v.dim];
+	for (int i=0; i<dim; i++) {
+		vect [i] = v [i];
+	}
+	return *this;
+}
+
 // Ajoute un entier au vecteur
 Vector &Vector::operator +=(const int i) {
-	int *newVect = new int [dim];
+	int *newVect = new int [dim + 1];
 	for (int k = 0; k<dim; k++)
 		newVect[k] = vect[k];
 	newVect[dim++] = i;
