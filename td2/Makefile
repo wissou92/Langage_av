@@ -2,6 +2,10 @@ MAIN=main
 
 .PHONY: compile main clean
 
+run: compile
+	clear
+	./$(MAIN)
+
 compile: $(MAIN)
 
 $(MAIN): main.o vector.o
