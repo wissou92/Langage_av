@@ -8,14 +8,14 @@ run: compile
 
 compile: $(MAIN)
 
-$(MAIN): main.o vector.o
+$(MAIN): vector.o main.o
 	g++ -o $(MAIN) main.o vector.o
 	
-vector.o: vector.cc
+vector.o: vector.cc vector.h
 	g++ -c vector.cc -o vector.o -Wall
 
 main.o: main.cc vector.h
 	g++ -c main.cc -o main.o -Wall
 	
 clean:
-	rm -rf *.o
+	rm -rf *.o $(MAIN)

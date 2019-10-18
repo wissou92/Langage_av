@@ -1,12 +1,13 @@
 #include <iostream>
+#include "vector.h"
 
-#ifdef TAB_DYNAMIQUE
+//#ifdef TAB_DYNAMIQUE
 
 using namespace std;
 
 
 // Constructeurs
-Vector (int d) {
+Vector::Vector (int d) {
 	if (d<=0)
 	{
 		dim = 1;
@@ -23,12 +24,12 @@ Vector (int d) {
 	}
 }
 
-Vector () {
+Vector::Vector () {
 	vect = new int [dim = 1];
 	vect [0] = 0;
 }
-
-Vector (const Vector &v) {
+// Constructeur de copie
+Vector::Vector (const Vector &v) {
 	dim = v.dim;
 	int k = 0;
 	vect = new int[dim];
@@ -39,7 +40,7 @@ Vector (const Vector &v) {
 }
 
 // Destructeur
-~Vector() {
+Vector::~Vector() {
 	delete[] vect;
 }
 
@@ -62,7 +63,7 @@ Vector &Vector::operator= (const Vector &v) {
 		delete[] vect;
 	vect = new int [dim = v.dim];
 	for (int i=0; i<dim; i++) {
-		vect [i] = v [i];
+		this->vect [i] = v [i];
 	}
 	return *this;
 }
@@ -104,8 +105,146 @@ istream &operator >>(istream &is, Vector &v)
 	}
 	return is;
 }
-
+/*
 #else
 
+// Partie 2. Implémentation par liste chaînées
+
+//=============
+// Classe Node
+//=============
+
+// Constructeur
+Node::Node(int i)
+{
+	integer=i;
+	nextNode=NULL;
+}
+
+Node::~Node()
+{
+	//Le destructeur fonctionne récursivement (avalanche de destruction)
+	//Le destructeur entraine la destruction du noeud suivant etc.
+	if(nextNode)
+		delete nextNode;
+}
+
+//____________________________________________
+
+//=====================
+//Classe Vector
+//=====================
+
+Vector::Vector (int nElem) 
+{
+	head=NULL;
+	length=0;
+	if(nElem<=0)
+	{
+		cout<<"Dimension <= 0. Vecteur vide\n";
+		return;
+	}
+	
+	for (int i=0; i<nElem; i++) 
+	{
+		*(this)+=0; // Ajout des nElem entiers en utilisant l'opérateur +=
+	}
+}
+
+Vector::Vector(const Vector &v)
+{
+	if(!v.head)//cas où v est une liste vide
+	{
+		head=NULL;
+		length=0;
+		return;
+	}
+	head=new Node(v.head->integer);//construction du premier Noeud
+	
+	Node *thisCurNode= head;// Curseur pour le vecteur this
+	Node *vCurNode=v.head->nextNode;//Curseur pour v
+	
+	while(vCurNode)
+	{
+		thisCurNode->nextNode=new Node(vCurNode->integer);
+		vCurNode = vCurNode->nextNode;
+		thisCurNode = thisCurNode->nextNode;
+	}
+	length = v.length;
+}
+
+Vector::~Vector() 
+{
+	delete head;
+	head=NULL;
+	length=0;
+}
+
+Vector &Vector::operator+=(const int integer)
+{
+		Node *newNode= new Node(integer);
+		if(!head)
+			head=newNode;
+		else
+		{
+			Node *n= head;
+			// parcourir la liste pour arriver au dernier élément
+			while (n->nextNode)
+				n=n->nextNode;
+			// Insérer le nouveau noeud contenant le nouvel entier
+			n->nextNode = newNode;
+		}
+		length++;
+		return *this;
+}
+
+Vector &Vector::operator=(const Vector &v)
+{
+	if((this)==&v)
+		return *this;
+	if(head)
+		delete head;
+	head=NULL;
+	length=0;
+	Node *n=v.head;
+	for(int i=0; i<v.length; i++)
+	{
+		(*this)+=n->integer;
+		n=n->nextNode;
+		n=nextNode;
+	}
+	return *this;
+}
+
+ostream &operator <<(ostream &o, Vector &v)
+{
+	Node *curNode=v.head;
+	for(int i=0; i<v.length; i++)
+	{
+		o<<curNode->getInt()<< " ";
+		curNode=curNode->getNextNode();
+	}
+	return o;
+}
+
+istream &operator >>(istream &is, Vector &v)
+{
+	//intnentry = 1;
+	cout<<"entrer "<<v.length<<" entiers: ";
+	for(int i=0; i<v.length;i++)
+		is>>v[i];
+	return is;
+}
+
+int &Vector::operator [] (int index) 
+{
+	Node *n= head;
+	if (index < 0 || index >= n->length)
+		cout << "indice incorrect\n";
+	for (int i=0; i<index; i++)
+		n=n->nextNode;
+	return n->integer;
+}
 
 #endif
+*/
