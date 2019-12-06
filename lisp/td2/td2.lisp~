@@ -1,0 +1,8 @@
+// Exercice 1
+(defun suc (ls)
+  (let ((o (car ls)))
+	     (dolist (x (cdr ls) t)
+	       (if (= 1 (abs (- o x)))
+		   (setf o x)
+		 (return-from suc nil)))))
+
